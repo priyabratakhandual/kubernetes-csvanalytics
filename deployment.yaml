@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csvanalytics-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: csvanalytics
+  template:
+    metadata:
+      labels:
+        app: csvanalytics
+    spec:
+      nodeName: worker-node  # 👈 Force to run on worker node
+      containers:
+      - name: csvanalytics-container
+        image: priyabratakhandual/csvanalytics:latest
+        ports:
+        - containerPort: 80
