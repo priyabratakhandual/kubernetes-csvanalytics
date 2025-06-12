@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // If your deployment files are in Git
-                git 'https://github.com/your-username/your-repo.git'
+                git 'https://github.com/priyabratakhandual/kubernetes-csvanalytics.git'
             }
         }
 
