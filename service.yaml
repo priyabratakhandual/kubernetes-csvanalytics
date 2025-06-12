@@ -9,4 +9,4 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-      nodePort: 30080  # Optional: can be omitted for auto-assign
+      nodePort: 30081 # Optional: can be omitted for auto-assign

@@ -10,7 +10,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // If your deployment files are in Git
                 git 'https://github.com/priyabratakhandual/kubernetes-csvanalytics.git'
             }
         }
@@ -33,9 +32,28 @@ pipeline {
     post {
         success {
             echo '✅ Deployment completed successfully.'
+            emailext(
+                subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """<p>Deployment completed successfully.</p>
+                         <p>Job: ${env.JOB_NAME}</p>
+                         <p>Build Number: ${env.BUILD_NUMBER}</p>
+                         <p>URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>""",
+                mimeType: 'text/html',
+                to: "Kanishk.kumar@Globtier.in, Sachin.Srivastav@globtierinfotech.com"
+            )
         }
+
         failure {
             echo '❌ Deployment failed.'
+            emailext(
+                subject: "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """<p>Deployment failed.</p>
+                         <p>Job: ${env.JOB_NAME}</p>
+                         <p>Build Number: ${env.BUILD_NUMBER}</p>
+                         <p>URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>""",
+                mimeType: 'text/html',
+                to: "Kanishk.kumar@Globtier.in, Sachin.Srivastav@globtierinfotech.com"
+            )
         }
     }
 }
